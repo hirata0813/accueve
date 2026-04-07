@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id    Int    @id @default(autoincrement())
+  name  String
+  state  Taskstate @default(DO)
+  maxHoursPerDay Int?
+  record         Record[] // このように書くことで，Task モデルは複数の Record を持つことを示す．ある日のrecordが空=その日はやってないにする?
+  createdAt DateTime @default(now()) // タスク作成から何日経ったかを管理するために必要
+}
+
+model Record {
+  id       Int    @id @default(autoincrement())
+  taskId Int
+  date  DateTime
+  done  Boolean @default(false) // デフォルトではfalse
+  hours  Int? // ?が付くと，NULL を許すということ
+  detail String?
+
+  task    Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, date]) // 複合ユニーク制約により，1つのタスクに対し，date が一意となる
+}
+
+enum Taskstate {
+ DO
+ DONE
+}
