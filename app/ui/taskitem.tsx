@@ -34,7 +34,7 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
   return (
     <div
       onClick={() => router.push(`/task/${id}`)}
-      className="p-2 border rounded hover:bg-gray-100 cursor-pointer flex flex-col justify-between"
+      className="p-2 border rounded hover:bg-gray-100 cursor-pointer flex flex-col justify-between w-78 h-40"
     >
 
       <div className="flex flex-col">
@@ -43,9 +43,9 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
             {chunk.map((worked, index) => (
               <span key={index} className="mx-0">
                 {worked ? (
-                  <FaSquare size={16} color="#ff6b6b" />
+                  <FaSquare size={16*1.6} color="#ff6b6b" />
                 ) : (
-                  <FaSquare size={16} color="#cccccc" />
+                  <FaSquare size={16*1.6} color="#cccccc" />
                 )}
               </span>
             ))}
@@ -57,11 +57,11 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
       <div className="flex justify-between items-center pt-2">
         <div className="flex items-center space-x-2">
           <FaFire
-            size={24}
+            size={24*1.6}
             color={todayWork ? "#ff6b6b" : "#cccccc"}
           />
-          <span className="font-bold">{consecutiveWorkdays}</span>
-          <span>{name}</span>
+          <span className="font-bold text-2xl">{consecutiveWorkdays}</span>
+          <span className="text-2xl">{name}</span>
         </div>
 
 
@@ -69,7 +69,7 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
           href={`/update-task/${id}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <FaEdit size={24} />
+          <FaEdit size={24*1.2} />
         </Link>
       </div>
     </div>

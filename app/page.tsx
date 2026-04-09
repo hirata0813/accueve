@@ -45,31 +45,29 @@ export default async function Home() {
 
       <h1 className="text-4xl font-bold">タスク一覧</h1>
 
-      <Link
-        href="/create-task"
-        className="text-blue-500 hover:underline text-lg font-medium"
-      >
-        <CiCirclePlus size={72} />
-      </Link>
 
       {/* TODO: API化(/api/tasks) */}
-      <ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 w-full">
         {tasks.map((task) => (
-          <Fragment key={task.id}>
-            <TaskItem
-              key={task.id}
-              id={task.id}
-              name={task.name}
-              maxHoursPerDay={task.maxHoursPerDay}
-              state={task.state}
-              consecutiveWorkdays={tasksStats.find((t) => t.id === task.id)?.consecutiveWorkdays || 0}
-              past30DaysWork={tasksStats.find((t) => t.id === task.id)?.past30DaysWork || []}
-              todayWork={tasksStats.find((t) => t.id === task.id)?.todayWork || false}
-            />
-
-          </Fragment>
+          <TaskItem
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            maxHoursPerDay={task.maxHoursPerDay}
+            state={task.state}
+            consecutiveWorkdays={tasksStats.find((t) => t.id === task.id)?.consecutiveWorkdays || 0}
+            past30DaysWork={tasksStats.find((t) => t.id === task.id)?.past30DaysWork || []}
+            todayWork={tasksStats.find((t) => t.id === task.id)?.todayWork || false}
+          />
         ))}
-      </ul>
+        <Link
+          href="/create-task"
+          className="text-blue-500 hover:underline text-lg font-medium"
+        >
+          <CiCirclePlus size={72*1.4} className="" />
+        </Link>
+      </div>
+
     </main>
   );
 }
