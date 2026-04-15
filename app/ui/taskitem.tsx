@@ -61,7 +61,9 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
             color={todayWork ? "#ff6b6b" : "#cccccc"}
           />
           <span className="font-bold text-2xl">{consecutiveWorkdays}</span>
-          <span className="text-2xl">{name}</span>
+          <span className="text-2xl">
+            {name.length > 7 ? `${name.slice(0, 7)}...` : name}
+          </span>
         </div>
 
 
