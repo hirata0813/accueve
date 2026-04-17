@@ -5,14 +5,28 @@ import Button from "@mui/material/Button";
 type Props = {
   href: string;
   label: string;
+  isActive?: boolean;
 };
 
-export default function LinkButton({ href, label }: Props) {
+export default function LinkButton({ href, label, isActive = false }: Props) {
   return (
-      <Link href={href}>
-        <Button variant="contained">
-          {label}
-        </Button>
-      </Link>
-    );
+    <Link href={href}
+      className={`text-lg font-medium px-4 py-2 rounded transition-colors ${
+        isActive
+          ? "border-b-4 border-white"
+          : "text-white hover:bg-gray-700"
+      }`} >
+      <Button 
+        variant="contained"
+        sx={{
+          backgroundColor: isActive ? "#1e40af" : "#666666",
+          "&:hover": {
+            backgroundColor: isActive ? "#1e3a8a" : "#555555"
+          }
+        }}
+      >
+        {label}
+      </Button>
+    </Link>
+  );
 }
