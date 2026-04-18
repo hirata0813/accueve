@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import ButtonUsage from "./linkbutton";
+import {NavBarLinkButton} from "./linkbutton";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -16,28 +16,28 @@ export default function NavBar() {
           <p className="text-3xl">Accueve</p>
         </li>
         <li>
-          <ButtonUsage 
+          <NavBarLinkButton 
             href="/" 
             label="タスク一覧"
             isActive={isActive("/")}
           />
         </li>
         <li>
-          <ButtonUsage 
+          <NavBarLinkButton 
             href="/achievement" 
             label="達成度画面"
             isActive={isActive("/achievement")}
           />
         </li>
         <li>
-          <ButtonUsage 
+          <NavBarLinkButton 
             href="/saying" 
             label="格言"
             isActive={isActive("/saying")}
           />
         </li>
         <li>
-          <ButtonUsage 
+          <NavBarLinkButton 
             href="/create-task" 
             label="タスク登録"
             isActive={isActive("/create-task")}
