@@ -1,6 +1,7 @@
 "use client";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
+import { FaTrashAlt } from "react-icons/fa";
 
 type Props = {
   id: number; // 削除対象のタスクID
@@ -27,12 +28,11 @@ export default function TaskDeleteButton({ id }: Props) {
   };
 
   return (
-    <Button
-      variant="contained"
-      color="secondary"
+    <button
       onClick={handleDelete}
+      title="タスクを削除"
     >
-      タスクを削除
-    </Button>
+      <FaTrashAlt size={24} />
+    </button>
   );
 }

@@ -27,7 +27,7 @@ export default function TaskForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
       <label>
         <span className="block font-semibold">
-          タスク名
+          タスク名<span className="text-red-500 ml-1">*</span>
         </span>
         <input
           type="text"
@@ -40,7 +40,7 @@ export default function TaskForm() {
 
       <label>
         <span className="block font-semibold">
-          1日の最大時間
+          1日の最大時間<span className="text-red-500 ml-1">*</span>
         </span>
         <input
           type="number"
@@ -52,7 +52,7 @@ export default function TaskForm() {
       </label>
 
       <Button type="submit" variant="contained" color="primary">
-        タスクを登録する
+        登録
       </Button>
     </form>
   );

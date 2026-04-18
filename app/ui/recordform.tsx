@@ -36,7 +36,7 @@ export default function RecordForm({ taskId }: Props) {
           {/* 日付 */}
           <label>
             <span className="block font-semibold">
-              日付
+              日付<span className="text-red-500 ml-1">*</span>
             </span>
             <input
               type="date"
@@ -50,7 +50,7 @@ export default function RecordForm({ taskId }: Props) {
           {/* 取り組み時間 */}
           <label>
             <span className="block font-semibold">
-              取り組み時間（時間）
+              取り組み時間(h)(任意)
             </span>
             <input
               type="number"
@@ -64,7 +64,7 @@ export default function RecordForm({ taskId }: Props) {
           {/* 内容 */}
           <label>
             <span className="block font-semibold">
-              内容
+              内容(任意)
             </span>
             <textarea
               name="detail"
@@ -74,7 +74,7 @@ export default function RecordForm({ taskId }: Props) {
           </label>
 
           <Button type="submit" variant="contained" color="primary">
-            記録する
+            記録
           </Button>
         </form>
   );

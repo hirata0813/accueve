@@ -1,8 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import ButtonUsage from "./ui/linkbutton";
-import Link from "next/link";
 import TaskItem from "./ui/taskitem";
-import { CiCirclePlus } from "react-icons/ci";
 import { countConsecutiveWorkdays } from "./lib/count-consecutive-workdays";
 import { fetchPast30DaysWork } from "./lib/fetch-past-30days-work";
 import { fetchTodayWork } from "./lib/fetch-today-work";

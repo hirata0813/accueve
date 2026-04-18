@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 import TaskEditForm from "../../ui/taskeditform";
 import TaskDeleteButton from "../../ui/taskdeletebutton";
+import NavBar from "../../ui/navbar";
 
 const prisma = new PrismaClient();
 
@@ -13,15 +14,16 @@ export default async function Home({ params }: { params: { id: string } }) {
   });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p className="text-xl">タスク編集画面</p>
+    <main className="min-h-screen flex-col items-center">
+      <NavBar />
+
+      <h1 className="text-5xl font-bold pt-10 pl-8">タスク編集</h1>
     
     {/* タスク編集用UI */}
-    <TaskEditForm task={task}/>
-    <TaskDeleteButton id={task.id} />
 
-    <div>
-      <Link href={"/"}>タスク一覧へ</Link>
+    <div className="mt-8 pl-10 space-y-4">
+      <TaskEditForm task={task}/>
+      <TaskDeleteButton id={task.id} />
     </div>
     </main>
   );
