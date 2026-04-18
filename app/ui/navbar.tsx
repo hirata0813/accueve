@@ -10,7 +10,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="w-full bg-gray-800 text-white py-4">
+    <nav className="sticky top-0 z-50 w-full bg-gray-800 text-white py-4">
       <ul className="flex justify-start space-x-8 pl-7">
         <li>
           <p className="text-3xl">Accueve</p>
