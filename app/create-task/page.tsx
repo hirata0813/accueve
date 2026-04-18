@@ -11,10 +11,11 @@ export default async function Home() {
   return (
     <main className="min-h-screen flex-col items-center">
       <NavBar />
-      <p className="text-xl">タスク登録画面</p>
+      <h1 className="text-5xl font-bold pt-10 pl-8">タスク登録</h1>
     
-    {/* タスク登録用UI */}
-    <TaskForm />
+      <div className="mt-8 pl-10 space-y-4">
+      <TaskForm />
+      </div>
     </main>
   );
 }

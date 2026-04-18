@@ -25,21 +25,32 @@ export default function TaskForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
-      <input
-        type="text"
-        name="name"
-        placeholder="タスク名を入力"
-        required
-        className="border border-gray-300 rounded px-4 py-2 text-lg"
-      />
+      <label>
+        <span className="block font-semibold">
+          タスク名
+        </span>
+        <input
+          type="text"
+          name="name"
+          placeholder="タスク名を入力"
+          required
+          className="border border-gray-300 rounded px-4 py-2 text-lg"
+        />
+      </label>
 
-      <input
-        type="number"
-        name="maxHoursPerDay"
-        placeholder="1日の最大時間を入力"
-        required
-        className="border border-gray-300 rounded px-4 py-2 text-lg"
-      />
+      <label>
+        <span className="block font-semibold">
+          1日の最大時間
+        </span>
+        <input
+          type="number"
+          name="maxHoursPerDay"
+          placeholder="1日の最大時間を入力"
+          required
+          className="border border-gray-300 rounded px-4 py-2 text-lg"
+        />
+      </label>
+
       <Button type="submit" variant="contained" color="primary">
         タスクを登録する
       </Button>

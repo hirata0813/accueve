@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import RecordForm from "../../ui/recordform";
+import NavBar from "@/app/ui/navbar";
 
 const prisma = new PrismaClient();
 
@@ -15,15 +16,15 @@ export default async function TaskPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="min-h-screen flex-col items-center">
+      <NavBar />
 
-      <p className="text-xl">達成度記録</p>
-      <h1 className="text-4xl font-bold">タスク名：{task.name} 1日の最大時間: {task.maxHoursPerDay} 状態: {task.state}</h1>
+      <h1 className="text-5xl font-bold pt-10 pl-8">達成度記録({task.name})</h1>
 
-    {/* 達成度登録用UI */}
-    <RecordForm taskId={task.id} />
-
-      <Link href="/">タスク一覧へ戻る</Link>
+      {/* 達成度登録用UI */}
+      <div className="mt-8 pl-10 space-y-4">
+        <RecordForm taskId={task.id} />
+      </div>
     </main>
   );
 }

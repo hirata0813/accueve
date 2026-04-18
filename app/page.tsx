@@ -43,12 +43,6 @@ export default async function Home() {
             todayWork={tasksStats.find((t) => t.id === task.id)?.todayWork || false}
           />
         ))}
-        <Link
-          href="/create-task"
-          className="text-blue-500 hover:underline text-lg font-medium"
-        >
-          <CiCirclePlus size={72*1.4} className="" />
-        </Link>
       </div>
 
     </main>

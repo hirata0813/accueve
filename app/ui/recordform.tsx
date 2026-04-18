@@ -35,7 +35,9 @@ export default function RecordForm({ taskId }: Props) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
           {/* 日付 */}
           <label>
-            日付
+            <span className="block font-semibold">
+              日付
+            </span>
             <input
               type="date"
               name="date"
@@ -47,7 +49,9 @@ export default function RecordForm({ taskId }: Props) {
 
           {/* 取り組み時間 */}
           <label>
-            取り組み時間（時間）
+            <span className="block font-semibold">
+              取り組み時間（時間）
+            </span>
             <input
               type="number"
               name="hours"
@@ -59,7 +63,9 @@ export default function RecordForm({ taskId }: Props) {
 
           {/* 内容 */}
           <label>
-            内容
+            <span className="block font-semibold">
+              内容
+            </span>
             <textarea
               name="detail"
               placeholder="取り組んだ内容を入力"
