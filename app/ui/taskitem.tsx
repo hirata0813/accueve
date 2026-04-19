@@ -10,13 +10,14 @@ type Props = {
   id: number;
   name: string;
   maxHoursPerDay: number | null;
+  color: string;
   state: string;
   consecutiveWorkdays: number;
   past30DaysWork: boolean[];
   todayWork: boolean;
 };
 
-export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork, todayWork }: Props) {
+export default function TaskItem({ id, name, color, consecutiveWorkdays, past30DaysWork, todayWork }: Props) {
   const router = useRouter();
 
   // 配列を10個ずつに分割する関数
@@ -29,7 +30,7 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
   };
 
   const chunks = chunkArray(past30DaysWork, 10);
-  console.log("chunks:", chunks);
+  console.log("color:", color);
 
   return (
     <div
@@ -43,7 +44,7 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
             {chunk.map((worked, index) => (
               <span key={index} className="mx-0">
                 {worked ? (
-                  <FaSquare size={16*1.6} color="#ff6b6b" />
+                  <FaSquare size={16*1.6} color={color} />
                 ) : (
                   <FaSquare size={16*1.6} color="#cccccc" />
                 )}
@@ -58,7 +59,7 @@ export default function TaskItem({ id, name, consecutiveWorkdays, past30DaysWork
         <div className="flex items-center space-x-2">
           <FaFire
             size={24*1.6}
-            color={todayWork ? "#ff6b6b" : "#cccccc"}
+            color={todayWork ? `${color}` : "#cccccc"}
           />
           <span className="font-bold text-2xl">{consecutiveWorkdays}</span>
           <span className="text-2xl">

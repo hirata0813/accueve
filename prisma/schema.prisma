@@ -18,6 +18,7 @@ model Task {
   name  String
   state  Taskstate @default(DO)
   maxHoursPerDay Int?
+  color  String @default("#ff0000")
   record         Record[] // このように書くことで，Task モデルは複数の Record を持つことを示す．ある日のrecordが空=その日はやってないにする?
   createdAt DateTime @default(now()) // タスク作成から何日経ったかを管理するために必要
 }

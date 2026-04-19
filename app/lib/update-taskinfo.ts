@@ -12,8 +12,9 @@ export async function updateTaskInfo(formData: FormData) {
     const id = Number(formData.get("id"));
     const name = formData.get("name") as string
     const maxHoursPerDay = Number(formData.get("maxHoursPerDay") as String)
+    const color = formData.get("color") as string;
 
-    console.log("フォームデータ(タスク更新):", { id, name, maxHoursPerDay});
+    console.log("フォームデータ(タスク更新):", { id, name, maxHoursPerDay, color});
 
     const newRecord = await prisma.task.update({
       where: {
@@ -23,6 +24,7 @@ export async function updateTaskInfo(formData: FormData) {
       data: {  // ← 存在する場合に更新
         name: name.trim(),
         maxHoursPerDay: maxHoursPerDay,
+        color: color,
       },
     });
     console.log("タスク情報が更新されました:", newRecord);

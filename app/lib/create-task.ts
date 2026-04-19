@@ -10,6 +10,7 @@ export async function createTask(formData: FormData) {
   console.log("フォームデータ:", formData);
   const name = formData.get("name") as string
   const maxHoursPerDay = Number(formData.get("maxHoursPerDay") as String)
+  const color = formData.get("color") as string;
 
   try {
     const newTask = await prisma.task.create({
@@ -17,6 +18,7 @@ export async function createTask(formData: FormData) {
         name: name.trim(),
         state: "DO", // デフォルト値
         maxHoursPerDay: maxHoursPerDay, // 必要に応じて変更
+        color: color,
       },
     });
 

@@ -34,6 +34,7 @@ export default async function Home() {
             id={task.id}
             name={task.name}
             maxHoursPerDay={task.maxHoursPerDay}
+            color={task.color}
             state={task.state}
             consecutiveWorkdays={tasksStats.find((t) => t.id === task.id)?.consecutiveWorkdays || 0}
             past30DaysWork={tasksStats.find((t) => t.id === task.id)?.past30DaysWork || []}
