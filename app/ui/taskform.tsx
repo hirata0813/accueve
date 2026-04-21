@@ -81,7 +81,9 @@ export default function TaskForm() {
                 type="number"
                 name="maxHoursPerDay"
                 placeholder="時間を入力"
+                defaultValue="0.5"
                 min="0.5"
+                max="24"
                 step="0.5"
                 className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
               />
