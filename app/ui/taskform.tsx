@@ -1,13 +1,16 @@
 "use client";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 
 export default function TaskForm() {
+  const [showMaxHoursForm, setShowMaxHoursForm] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    console.log("Form Data:", Object.fromEntries(formData.entries())); // 送信前のデータを確認
 
     {/* 以下のやり方で，外部にAPIリクエストを送り，その結果をawaitして待つみたい */}
     const res = await fetch("/api/task", {
@@ -38,17 +41,53 @@ export default function TaskForm() {
         />
       </label>
 
-      <label>
+      <label className="block">
         <span className="block font-semibold">
-          1日の最大時間<span className="text-red-500 ml-1">*</span>
+          時間設定<span className="text-red-500 ml-1">*</span>
         </span>
-        <input
-          type="number"
-          name="maxHoursPerDay"
-          placeholder="1日の最大時間を入力"
-          required
-          className="border border-gray-300 rounded px-4 py-2 text-lg"
-        />
+
+        <div className="flex gap-4 mb-4">
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="setMaxHoursForm"
+              value="no"
+              defaultChecked
+              onChange={() => setShowMaxHoursForm(false)}
+              className="mr-2"
+            />
+            <span>設定しない</span>
+          </label>
+
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="setMaxHoursForm"
+              value="yes"
+              onChange={() => setShowMaxHoursForm(true)}
+              className="mr-2"
+            />
+            <span>設定する</span>
+          </label>
+        </div>
+    
+        {showMaxHoursForm && (
+          <div className="mt-3 pl-4 border-l-2 border-blue-500">
+            <label>
+              <span className="block font-semibold mb-2">
+                1日の最大時間(h)
+              </span>
+              <input
+                type="number"
+                name="maxHoursPerDay"
+                placeholder="時間を入力"
+                min="0.5"
+                step="0.5"
+                className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
+              />
+            </label>
+          </div>
+        )}
       </label>
 
       <label>

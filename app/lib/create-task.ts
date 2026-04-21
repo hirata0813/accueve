@@ -8,16 +8,18 @@ const prisma = new PrismaClient();
 export async function createTask(formData: FormData) {
   // 引数取り出し
   console.log("フォームデータ:", formData);
-  const name = formData.get("name") as string
-  const maxHoursPerDay = Number(formData.get("maxHoursPerDay") as String)
+  const name = formData.get("name") as string;
   const color = formData.get("color") as string;
+  const maxHoursPerDay = formData.get("setMaxHoursForm") == "yes" 
+    ? Number(formData.get("maxHoursPerDay") as String)
+    : null;
 
   try {
     const newTask = await prisma.task.create({
       data: {
         name: name.trim(),
         state: "DO", // デフォルト値
-        maxHoursPerDay: maxHoursPerDay, // 必要に応じて変更
+        maxHoursPerDay: maxHoursPerDay,
         color: color,
       },
     });
