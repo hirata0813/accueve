@@ -18,7 +18,6 @@ export default async function Home() {
       return { ...task, consecutiveWorkdays, past30DaysWork, todayWork };
     })
   );
-  //console.log("タスク情報:", tasksStats);
 
   return (
     <main className="min-h-screen flex-col items-center">

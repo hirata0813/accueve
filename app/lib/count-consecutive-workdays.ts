@@ -45,6 +45,5 @@ export async function countConsecutiveWorkdays(taskId: number): Promise<number> 
     }
   }
 
-  console.log(`タスクID ${taskId} の連続日数:`, consecutiveDays);
   return consecutiveDays;
 }

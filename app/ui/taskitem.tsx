@@ -30,7 +30,6 @@ export default function TaskItem({ id, name, color, consecutiveWorkdays, past30D
   };
 
   const chunks = chunkArray(past30DaysWork, 10);
-  console.log("color:", color);
 
   return (
     <div
