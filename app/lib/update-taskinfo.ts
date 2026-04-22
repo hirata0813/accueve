@@ -11,8 +11,10 @@ export async function updateTaskInfo(formData: FormData) {
   try {
     const id = Number(formData.get("id"));
     const name = formData.get("name") as string
-    const maxHoursPerDay = Number(formData.get("maxHoursPerDay") as String)
     const color = formData.get("color") as string;
+    const maxHoursPerDay = formData.get("setMaxHoursForm") == "yes" 
+      ? Number(formData.get("maxHoursPerDay") as String)
+      : null;
 
     console.log("フォームデータ(タスク更新):", { id, name, maxHoursPerDay, color});
 

@@ -17,7 +17,7 @@ export default async function Home({ params }: { params: { id: string } }) {
     <main className="min-h-screen flex-col items-center">
       <NavBar />
 
-      <h1 className="text-5xl font-bold pt-10 pl-8">タスク編集</h1>
+      <h1 className="text-5xl font-bold pt-10 pl-8">タスク編集({task.name})</h1>
     
     {/* タスク編集用UI */}
 

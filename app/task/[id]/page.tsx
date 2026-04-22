@@ -23,7 +23,7 @@ export default async function TaskPage({ params }: { params: { id: string } }) {
 
       {/* 達成度登録用UI */}
       <div className="mt-8 pl-10 space-y-4">
-        <RecordForm taskId={task.id} />
+        <RecordForm taskId={task.id} maxHoursPerDay={task.maxHoursPerDay}/>
       </div>
     </main>
   );

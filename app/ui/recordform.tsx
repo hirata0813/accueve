@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 // taskIdをpropsで受け取る
 type Props = {
   taskId: number;
+  maxHoursPerDay: number | null;
 };
 
-export default function RecordForm({ taskId }: Props) {
+export default function RecordForm({ taskId, maxHoursPerDay}: Props) {
   const router = useRouter();
+  console.log("RecordForm rendered with taskId:", taskId, "maxHoursPerDay:", maxHoursPerDay);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,19 +49,24 @@ export default function RecordForm({ taskId }: Props) {
             />
           </label>
 
+          {maxHoursPerDay != null && (
+            <label>
+              <span className="block font-semibold">
+                取り組み時間(h)(任意)
+              </span>
+              <input
+                type="number"
+                name="hours"
+                min="0.5"
+                defaultValue="0.5"
+                step="0.5"
+                max={maxHoursPerDay}
+                className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
+              />
+            </label>
+          )}
+
           {/* 取り組み時間 */}
-          <label>
-            <span className="block font-semibold">
-              取り組み時間(h)(任意)
-            </span>
-            <input
-              type="number"
-              name="hours"
-              min="0"
-              step="0.5"
-              className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
-            />
-          </label>
 
           {/* 内容 */}
           <label>
