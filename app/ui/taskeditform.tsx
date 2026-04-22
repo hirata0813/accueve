@@ -1,11 +1,13 @@
 "use client";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 type Task = {
   id: number;
   name: string;
   maxHoursPerDay: number | null;
+  color: string;
 };
 
 type Props = {
@@ -14,6 +16,17 @@ type Props = {
 
 export default function TaskForm({ task }: Props) {
   const router = useRouter();
+  const [showMaxHoursForm, setShowMaxHoursForm] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(task.color);
+
+  // コンポーネント初期化時に showMaxHoursForm を設定
+  useEffect(() => {
+    if (task.maxHoursPerDay == null) {
+      setShowMaxHoursForm(false);
+    } else {
+      setShowMaxHoursForm(true);
+    }
+  }, [task.maxHoursPerDay]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,18 +62,56 @@ export default function TaskForm({ task }: Props) {
         />
       </label>
 
-      <label>
+      <label className="block">
         <span className="block font-semibold">
-          1日の最大時間<span className="text-red-500 ml-1">*</span>
+          時間設定<span className="text-red-500 ml-1">*</span>
         </span>
-        <input
-          type="number"
-          name="maxHoursPerDay"
-          placeholder="1日の最大時間を入力"
-          defaultValue={task.maxHoursPerDay ?? ""} // 1日の最大時間の初期値を設定（nullの場合は空文字）
-          required
-          className="border border-gray-300 rounded px-4 py-2 text-lg"
-        />
+
+        <div className="flex gap-4 mb-4">
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="setMaxHoursForm"
+              value="no"
+              checked={showMaxHoursForm === false}
+              onChange={() => setShowMaxHoursForm(false)}
+              className="mr-2"
+            />
+            <span>設定しない</span>
+          </label>
+
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="setMaxHoursForm"
+              value="yes"
+              checked={showMaxHoursForm === true}
+              onChange={() => setShowMaxHoursForm(true)}
+              className="mr-2"
+            />
+            <span>設定する</span>
+          </label>
+        </div>
+    
+        {showMaxHoursForm && (
+          <div className="mt-3 pl-4 border-l-2 border-blue-500">
+            <label>
+              <span className="block font-semibold mb-2">
+                1日の最大時間(h)
+              </span>
+              <input
+                type="number"
+                name="maxHoursPerDay"
+                placeholder="時間を入力"
+                defaultValue={task.maxHoursPerDay || ""}
+                min="0.5"
+                max="24"
+                step="0.5"
+                className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
+              />
+            </label>
+          </div>
+        )}
       </label>
 
       <label>
@@ -81,6 +132,8 @@ export default function TaskForm({ task }: Props) {
                 type="radio"
                 name="color"
                 value={preset.color}
+                checked={selectedColor === preset.color}
+                onChange={(e) => setSelectedColor(e.target.value)}
                 required
                 className="mr-2"
               />
