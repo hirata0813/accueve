@@ -17,19 +17,39 @@ type Props = {
   todayWork: boolean;
 };
 
+// ある配列を，任意個数要素の小さな配列に分割する関数
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+}
+
+// 過去N日の日付を生成（今日から遡る）
+function getpastNDates(arrayLength: number) {
+  const dates = [];
+  for (let i = arrayLength - 1; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    dates.push(date);
+  }
+  return dates;
+}
+
+// 日付の配列を受取り，その中から日のみを抽出して返す関数
+function extractDaysFromDates(dates: Date[]): number[] {
+  return dates.map(date => date.getDate());
+}
+
 export default function TaskItem({ id, name, color, consecutiveWorkdays, past30DaysWork, todayWork }: Props) {
   const router = useRouter();
 
-  // 配列を10個ずつに分割する関数
-  const chunkArray = (array: boolean[], size: number) => {
-    const chunks = [];
-    for (let i = 0; i < array.length; i += size) {
-      chunks.push(array.slice(i, i + size));
-    }
-    return chunks;
-  };
-
-  const chunks = chunkArray(past30DaysWork, 10);
+  const chunkedWorks = chunkArray<boolean>(past30DaysWork, 10);
+  const past30Dates = getpastNDates(past30DaysWork.length);
+  const past30Days = extractDaysFromDates(past30Dates);
+  const chunkedDays = chunkArray<number>(past30Days, 10);
+  console.log("taskname",name, "chunkedDays", chunkedDays);
 
   return (
     <div
@@ -38,16 +58,20 @@ export default function TaskItem({ id, name, color, consecutiveWorkdays, past30D
     >
 
       <div className="flex flex-col">
-        {chunks.map((chunk, chunkIndex) => (
+        {chunkedWorks.map((chunk, chunkIndex) => (
           <div key={chunkIndex} className="flex justify-start">
             {chunk.map((worked, index) => (
-              <span key={index} className="mx-0">
-                {worked ? (
-                  <FaSquare size={16*1.6} color={color} />
-                ) : (
-                  <FaSquare size={16*1.6} color="#cccccc" />
-                )}
-              </span>
+              <div
+                key={index}
+                className="w-6 h-6 flex mx-0.5 my-0.5 items-center justify-center text-xs font-bold border rounded-sm"
+                style={{
+                  backgroundColor: worked ? color : "#f0f0f0",
+                  color: worked ? "white" : "#666666",
+                  borderColor: worked ? color : "#cccccc"
+                }}
+              >
+                {chunkedDays[chunkIndex]?.[index]}
+              </div>
             ))}
           </div>
         ))}
