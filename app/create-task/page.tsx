@@ -1,11 +1,8 @@
 "use server";
 import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
 import Button from "@mui/material/Button";
 import TaskForm from "../ui/taskform";
 import NavBar from "../ui/navbar";
-
-const prisma = new PrismaClient();
 
 export default async function Home() {
   return (

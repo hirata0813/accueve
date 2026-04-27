@@ -1,11 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/prisma";
 import TaskItem from "./ui/taskitem";
 import { countConsecutiveWorkdays } from "./lib/count-consecutive-workdays";
 import { fetchPast30DaysWork } from "./lib/fetch-past-30days-work";
 import { fetchTodayWork } from "./lib/fetch-today-work";
 import NavBar from "./ui/navbar";
-
-const prisma = new PrismaClient();
 
 export default async function Home() {
   const tasks = await prisma.task.findMany();

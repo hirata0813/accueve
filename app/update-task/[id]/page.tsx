@@ -1,11 +1,8 @@
 "use server";
-import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/prisma";
 import TaskEditForm from "../../ui/taskeditform";
 import TaskDeleteButton from "../../ui/taskdeletebutton";
 import NavBar from "../../ui/navbar";
-
-const prisma = new PrismaClient();
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = await params;

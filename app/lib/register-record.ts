@@ -1,8 +1,5 @@
 import "server-only";
-import { PrismaClient } from "@prisma/client";
-
-
-const prisma = new PrismaClient();
+import { prisma } from "@/app/lib/prisma";
 
 // 引数: タスク名，1日の最大時間，
 export async function registerRecord(formData: FormData) {

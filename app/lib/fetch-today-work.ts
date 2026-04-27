@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/prisma";
 import { toJSTDateStr } from "./to-jst-date-str";
-
-const prisma = new PrismaClient();
-
 
 /**
  * あるタスクについて、本日取り組まれたかどうかを返す関数

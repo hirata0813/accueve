@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { toJSTDateStr } from "./to-jst-date-str";
-
-const prisma = new PrismaClient();
-
+import { prisma } from "@/app/lib/prisma";
 
 /**
  * あるタスクについて、直近10日間各日で取り組まれたかどうかの配列を返す関数

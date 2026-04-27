@@ -1,9 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-import Link from "next/link";
+import { prisma } from "@/app/lib/prisma";
 import RecordForm from "../../ui/recordform";
 import NavBar from "@/app/ui/navbar";
-
-const prisma = new PrismaClient();
 
 export default async function TaskPage({ params }: { params: { id: string } }) {
   const { id } = await params;

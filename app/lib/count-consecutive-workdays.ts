@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/prisma";
 
-const prisma = new PrismaClient();
 
 /**
  * あるタスクについて連続して，当日から遡って連続で取り組んだ日数をカウントする関数
