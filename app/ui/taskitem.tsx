@@ -3,8 +3,7 @@ import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FaFire } from "react-icons/fa6";
-import { FaSquare } from "react-icons/fa";
-
+import { WorkDayCube } from "./workdaycube";
 
 type Props = {
   id: number;
@@ -61,17 +60,12 @@ export default function TaskItem({ id, name, color, consecutiveWorkdays, past30D
         {chunkedWorks.map((chunk, chunkIndex) => (
           <div key={chunkIndex} className="flex justify-start">
             {chunk.map((worked, index) => (
-              <div
+              <WorkDayCube
                 key={index}
-                className="w-6 h-6 flex mx-0.5 my-0.5 items-center justify-center text-xs font-bold border rounded-sm"
-                style={{
-                  backgroundColor: worked ? color : "#f0f0f0",
-                  color: worked ? "white" : "#666666",
-                  borderColor: worked ? color : "#cccccc"
-                }}
-              >
-                {chunkedDays[chunkIndex]?.[index]}
-              </div>
+                worked={worked}
+                day={chunkedDays[chunkIndex]?.[index]}
+                color={color}
+              />
             ))}
           </div>
         ))}
