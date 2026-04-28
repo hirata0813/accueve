@@ -18,7 +18,9 @@ Accueve という名前の由来は，Accumulate(蓄積する)+Achieve(達成す
 
 ### set up
 1. git clone
+```
 git clone git@github.com:hirata0813/accueve.git
+```
 2. 依存パッケージインストール
 cd accueve
 npm install
