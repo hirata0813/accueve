@@ -18,15 +18,14 @@ Accueve という名前の由来は，Accumulate(蓄積する)+Achieve(達成す
 
 ### set up
 1. git clone
-	git clone git@github.com:hirata0813/accueve.git
+git clone git@github.com:hirata0813/accueve.git
 2. 依存パッケージインストール
-	cd accueve
-	npm install
+cd accueve
+npm install
 3. 環境変数を設定
-	cp .env.example .env
-	`.env`の7行目を`DATABASE_URL="file:./dev.db"`にする
+cp .env.example .env
+`.env`の7行目を`DATABASE_URL="file:./dev.db"`にする
 4. prisma セットアップ
- 	npx prisma migrate dev --name init
+npx prisma migrate dev --name init
 5. サーバ起動
-	code:zsh
-	npm run dev
+npm run dev
