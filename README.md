@@ -29,7 +29,7 @@ npm install
 3. 環境変数を設定
 ```
 cp .env.example .env
-`.env`の7行目を`DATABASE_URL="file:./dev.db"`にする
+.env の7行目を DATABASE_URL="file:./dev.db" にする
 ```
 4. prisma セットアップ
 ```
