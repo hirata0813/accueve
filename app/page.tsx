@@ -23,7 +23,6 @@ export default async function Home() {
 
       <h1 className="text-5xl font-bold pt-10 pl-8">タスク一覧</h1>
 
-      {/* TODO: API化(/api/tasks) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 w-full pt-15 px-4">
         {tasks.map((task) => (
           <TaskItem
