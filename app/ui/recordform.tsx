@@ -1,6 +1,7 @@
 "use client";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
+import { toJSTDateStr } from "../lib/to-jst-date-str";
 
 // taskIdをpropsで受け取る
 type Props = {
@@ -44,7 +45,7 @@ export default function RecordForm({ taskId, maxHoursPerDay}: Props) {
               type="date"
               name="date"
               required
-              defaultValue={new Date().toISOString().split("T")[0]} // YYYY-MM-DD形式
+              defaultValue={toJSTDateStr(new Date())} // YYYY-MM-DD形式
               className="border border-gray-300 rounded px-4 py-2 text-lg w-full"
             />
           </label>
