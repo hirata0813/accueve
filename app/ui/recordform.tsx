@@ -1,7 +1,7 @@
 "use client";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
-import { toJSTDateStr } from "../lib/to-jst-date-str";
+import { toJSTDateStr } from "@/app/lib/to-jst-date-str";
 
 // taskIdをpropsで受け取る
 type Props = {

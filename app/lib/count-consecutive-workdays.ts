@@ -2,7 +2,7 @@ import { prisma } from "@/app/lib/prisma";
 
 
 /**
- * あるタスクについて連続して，当日から遡って連続で取り組んだ日数をカウントする関数
+ * あるタスクについて，当日から遡って連続で取り組んだ日数をカウントする関数
  * @param taskId - タスクのID
  * @returns 連続して取り組んだ日数
  */
@@ -43,6 +43,7 @@ export async function countConsecutiveWorkdays(taskId: number): Promise<number> 
         break; // 連続が途切れたらループを抜ける
     }
   }
+  console.log(`タスクID ${taskId} の連続取り組み日数:`, consecutiveDays, "日");
 
   return consecutiveDays;
 }

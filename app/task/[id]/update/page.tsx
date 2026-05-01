@@ -1,8 +1,8 @@
 "use server";
 import { prisma } from "@/app/lib/prisma";
-import TaskEditForm from "../../ui/taskeditform";
-import TaskDeleteButton from "../../ui/taskdeletebutton";
-import NavBar from "../../ui/navbar";
+import TaskEditForm from "@/app/ui/taskeditform";
+import TaskDeleteButton from "@/app/ui/taskdeletebutton";
+import NavBar from "@/app/ui/navbar";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = await params;

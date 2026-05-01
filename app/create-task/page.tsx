@@ -1,8 +1,8 @@
 "use server";
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import TaskForm from "../ui/taskform";
-import NavBar from "../ui/navbar";
+import TaskForm from "@/app/ui/taskform";
+import NavBar from "@/app/ui/navbar";
 
 export default async function Home() {
   return (

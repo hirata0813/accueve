@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import RecordForm from "../../ui/recordform";
+import RecordForm from "@/app/ui/recordform";
 import NavBar from "@/app/ui/navbar";
 
 export default async function TaskPage({ params }: { params: { id: string } }) {

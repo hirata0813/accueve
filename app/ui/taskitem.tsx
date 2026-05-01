@@ -86,7 +86,7 @@ export default function TaskItem({ id, name, color, consecutiveWorkdays, past30D
 
 
         <Link
-          href={`/update-task/${id}`}
+          href={`/task/${id}/update`}
           onClick={(e) => e.stopPropagation()}
         >
           <FaEdit size={24*1.2} />
