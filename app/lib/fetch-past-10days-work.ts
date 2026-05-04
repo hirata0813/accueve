@@ -1,4 +1,4 @@
-import { toJSTDateStr } from "./to-jst-date-str";
+import { toJSTDateStr } from "@/app/lib/to-jst-date-str";
 import { prisma } from "@/app/lib/prisma";
 
 /**

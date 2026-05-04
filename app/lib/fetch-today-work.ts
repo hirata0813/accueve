@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { toJSTDateStr } from "./to-jst-date-str";
+import { toJSTDateStr } from "@/app/lib/to-jst-date-str";
 
 /**
  * あるタスクについて、本日取り組まれたかどうかを返す関数

@@ -1,9 +1,9 @@
 import { prisma } from "@/app/lib/prisma";
-import TaskItem from "./ui/taskitem";
-import { countConsecutiveWorkdays } from "./lib/count-consecutive-workdays";
-import { fetchPast30DaysWork } from "./lib/fetch-past-30days-work";
-import { fetchTodayWork } from "./lib/fetch-today-work";
-import NavBar from "./ui/navbar";
+import TaskItem from "@/app/ui/taskitem";
+import { countConsecutiveWorkdays } from "@/app/lib/count-consecutive-workdays";
+import { fetchPast30DaysWork } from "@/app/lib/fetch-past-30days-work";
+import { fetchTodayWork } from "@/app/lib/fetch-today-work";
+import NavBar from "@/app/ui/navbar";
 
 export default async function Home() {
   const tasks = await prisma.task.findMany();

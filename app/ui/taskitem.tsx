@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FaFire } from "react-icons/fa6";
-import { WorkDayCube } from "./workdaycube";
+import { WorkDayCube } from "@/app/ui/workdaycube";
 
 type Props = {
   id: number;

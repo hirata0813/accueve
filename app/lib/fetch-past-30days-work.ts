@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { toJSTDateStr } from "./to-jst-date-str";
+import { toJSTDateStr } from "@/app/lib/to-jst-date-str";
 
 /**
  * あるタスクについて、直近10日間各日で取り組まれたかどうかの配列を返す関数

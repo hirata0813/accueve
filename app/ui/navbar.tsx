@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import {NavBarLinkButton} from "./linkbutton";
+import {NavBarLinkButton} from "@/app/ui/linkbutton";
 
 export default function NavBar() {
   const pathname = usePathname();
