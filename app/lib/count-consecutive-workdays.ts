@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-
+import { toJSTDateStr } from "@/app/lib/to-jst-date-str";
 
 /**
  * あるタスクについて，当日から遡って連続で取り組んだ日数をカウントする関数
@@ -17,15 +17,22 @@ export async function countConsecutiveWorkdays(taskId: number): Promise<number> 
   if (records.length === 0) {
     return 0; // レコードがない場合は0日
   }
+  //console.log(`タスクID ${taskId} のレコード:`, records);
 
   let consecutiveDays = 0;
   const today = new Date(); // 今日の日付
+  //console.log(`今日の日付:`, today);
+  //const today = toJSTDateStr(new Date());
+  //const todayJSTDate = new Date(toJSTDateStr(today) + "T00:00:00.000Z");
+  //const todayJSTDateEnd = new Date(toJSTDateStr(today) + "T23:59:59.000Z");;
 
   // today から遡って，何日連続で取り組んだかをカウント
   let lastWorkedDate = today;
 
   for (const record of records) {
-    const recordDate = new Date(record.date);
+    //console.log(`タスクID ${taskId} のレコード日付（元の形式）:`, record);
+    const recordDate = record.date;
+    //console.log(`タスクID ${taskId} のレコード日付:`, recordDate);
 
     if (recordDate > today) {
       continue; // 今日より未来の日付はスキップ
@@ -43,7 +50,7 @@ export async function countConsecutiveWorkdays(taskId: number): Promise<number> 
         break; // 連続が途切れたらループを抜ける
     }
   }
-  console.log(`タスクID ${taskId} の連続取り組み日数:`, consecutiveDays, "日");
+  //console.log(`タスクID ${taskId} の連続取り組み日数:`, consecutiveDays, "日");
 
   return consecutiveDays;
 }
