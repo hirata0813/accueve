@@ -9,14 +9,18 @@ import {
   Label,
 } from "recharts";
 
-// 期待: 線形 / 実際: 指数関数的成長（序盤ほぼ0、後半急上昇）
+type Props = {
+  totalHours: number; // 累計取り組み時間
+};
+
 const generateData = () => {
   const points = [];
   for (let t = 0; t <= 110; t += 1) {
     const expected = t;
-    // 指数関数: e^(kt) を正規化して0-100スケールに
-    const k = 0.055;
-    const actual = (Math.exp(k * t) - 1) / (Math.exp(k * 100) - 1) * 100;
+    //const k = 0.055;
+    //const actual = (Math.exp(k * t) - 1) / (Math.exp(k * 100) - 1) * 100;
+    const base = 40;
+    const actual = (Math.pow(base, t / 100) - 1) / (base - 1) * 100;
     points.push({
       t,
       expected: Math.max(0, expected),
@@ -28,7 +32,6 @@ const generateData = () => {
 
 const data = generateData();
 
-// 失望の谷: 差が最大になる点
 const valleyPoint = data.reduce((max, d) => {
   const gap = d.expected - d.actual;
   return gap > (max.expected - max.actual) ? d : max;
@@ -44,11 +47,15 @@ const ArrowDot = ({ cx, cy, index, dataLength, color }: any) => {
     />
   );
 };
-console.log("data", data);
 
-export function DisappointmentValley() {
+export function DisappointmentValley({ totalHours }: Props) {
+  // totalHours を t として各曲線上の値を取得
+  const t = Math.min(Math.max(Math.round(totalHours), 0), 110);
+  const markerPoint = data.find((d) => d.t === t) ?? data[0];
+
   return (
-    <div className="h-70 flex flex-col mx-0.5 my-0.5 border rounded-sm bg-white px-2 pt-3 pb-1">
+    <div className="h-100 flex flex-col mx-0.5 my-0.5 border rounded-sm bg-white px-2 pt-3 pb-1">
+      <h2 className="text-2xl font-bold mb-4">成長曲線</h2>
       <div className="flex-1">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -63,7 +70,7 @@ export function DisappointmentValley() {
               tick={false}
               tickLine={false}
             >
-              <Label value="時間" position="insideBottomRight" offset={-4} fontSize={11} fill="#374151" />
+              <Label value="累計取り組み時間" position="insideBottomRight" offset={-4} fontSize={11} fill="#374151" />
             </XAxis>
             <YAxis
               domain={[0, 110]}
@@ -71,7 +78,7 @@ export function DisappointmentValley() {
               tick={false}
               tickLine={false}
             >
-              <Label value="結果" position="insideTopLeft" offset={-4} fontSize={11} fill="#374151" />
+              <Label value="進捗" position="insideTopLeft" offset={-4} fontSize={11} fill="#374151" />
             </YAxis>
 
             {/* 期待している進歩（青・線形） */}
@@ -84,20 +91,6 @@ export function DisappointmentValley() {
               )}
               activeDot={false}
               isAnimationActive={true}
-              label={
-                (({ viewBox }: any) =>
-                  viewBox?.x > 0 ? (
-                    <text
-                      x={viewBox.x - 70}
-                      y={viewBox.y - 6}
-                      fontSize={10}
-                      fill="#3b82f6"
-                      fontWeight="bold"
-                    >
-                      期待している進歩
-                    </text>
-                  ) : null) as any
-              }
             />
 
             {/* 実際の進捗（赤・指数関数） */}
@@ -121,7 +114,7 @@ export function DisappointmentValley() {
               stroke="none"
             />
 
-            {/* 失望の谷ラベル＋実際の進捗ラベル */}
+            {/* 失望の谷ラベル＋各曲線ラベル（1回だけSVGで描画） */}
             <ReferenceDot
               x={valleyPoint.t}
               y={(valleyPoint.expected + valleyPoint.actual) / 2}
@@ -133,19 +126,58 @@ export function DisappointmentValley() {
                 const { x, y } = viewBox;
                 return (
                   <g>
+                    {/* 失望の谷ラベル */}
                     <line x1={x} y1={y} x2={x + 18} y2={y + 36}
                       stroke="#374151" strokeWidth={1} strokeDasharray="3 3" />
                     <text x={x + 20} y={y + 46} fontSize={10} fill="#374151" fontWeight="bold">
                       失望の谷
                     </text>
+                    {/* 実際の進捗ラベル */}
                     <text x={x + 60} y={y - 30} fontSize={10} fill="#ef4444" fontWeight="bold">
                       実際の進捗
                     </text>
                     <line x1={x + 58} y1={y - 24} x2={x + 40} y2={y - 10}
                       stroke="#ef4444" strokeWidth={1} strokeDasharray="3 3" />
+                    {/* 期待している進歩ラベル（青線の中間あたりに固定） */}
+                    <text x={x - 60} y={y - 40} fontSize={10} fill="#3b82f6" fontWeight="bold">
+                      期待している進歩
+                    </text>
+                    <line x1={x - 30} y1={y - 36} x2={x - 10} y2={y - 20}
+                      stroke="#3b82f6" strokeWidth={1} strokeDasharray="3 3" />
                   </g>
                 );
               }}
+            />
+
+            {/* 現在地マーカー: 期待曲線上 */}
+            <ReferenceDot
+              x={markerPoint.t}
+              y={markerPoint.expected}
+              r={6}
+              fill="#3b82f6"
+              stroke="white"
+              strokeWidth={2}
+              label={({ viewBox }: any) => {
+                if (!viewBox) return null;
+                const { x, y } = viewBox;
+                return (
+                  <g>
+                    <text x={x + 8} y={y - 6} fontSize={9} fill="#3b82f6" fontWeight="bold">
+                      現在地
+                    </text>
+                  </g>
+                );
+              }}
+            />
+
+            {/* 現在地マーカー: 実際の進捗曲線上 */}
+            <ReferenceDot
+              x={markerPoint.t}
+              y={markerPoint.actual}
+              r={6}
+              fill="#ef4444"
+              stroke="white"
+              strokeWidth={2}
             />
           </LineChart>
         </ResponsiveContainer>
