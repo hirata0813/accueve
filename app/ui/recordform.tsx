@@ -11,7 +11,6 @@ type Props = {
 
 export default function RecordForm({ taskId, maxHoursPerDay}: Props) {
   const router = useRouter();
-  console.log("RecordForm rendered with taskId:", taskId, "maxHoursPerDay:", maxHoursPerDay);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

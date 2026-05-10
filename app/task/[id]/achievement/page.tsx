@@ -6,6 +6,7 @@ import { fetchPast30DaysWork } from "@/app/lib/fetch-past-30days-work";
 import { BarChart } from "@/app/ui/bar-chart";
 import { DailyRecord } from "@/app/ui/daily-record";
 import { DisappointmentValley } from "@/app/ui/disappointment-valley";
+import { calcTotalHours } from "@/app/lib/calc-total-hours";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = await params;
@@ -25,8 +26,15 @@ export default async function Home({ params }: { params: { id: string } }) {
   const consecutiveWorkdays = await countConsecutiveWorkdays(taskId);
   const past30DaysWork = await fetchPast30DaysWork(taskId);
 
+  const records = await prisma.record.findMany({
+    where: { taskId },
+    orderBy: { date: "desc" }
+  });
+
+  const totalHours = await calcTotalHours(taskId);
+
   return (
-    <main className="min-h-screen flex-col items-center">
+    <main className="min-h-screen flex flex-col">
       {/* NavBar */}
       <NavBar />
 
@@ -36,45 +44,35 @@ export default async function Home({ params }: { params: { id: string } }) {
         <AchievementSideBar tasks={tasks} />
 
         {/* メインコンテンツ */}
-        <div className="flex-1 flex flex-col p-8">
+        <div className="flex-1 flex flex-col p-8 space-y-8">
           {/* タスク情報 */}
-          <div className="flex items-center gap-4 mb-8">
-            <h1 className="text-5xl font-bold">{task.name}</h1>
-            <div
-              className="w-12 h-12 rounded"
-              style={{ backgroundColor: task.color }}
+
+          {/* DailyRecord（全幅） */}
+          <div className="w-full">
+            <DailyRecord
+              task={task}
+              consecutiveWorkdays={consecutiveWorkdays}
+              past30DaysWork={past30DaysWork}
             />
           </div>
 
-          {/* 達成度情報 */}
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <div className="mb-6">
-              <p className="text-lg text-gray-600">現在，{consecutiveWorkdays}日連続達成</p>
-            </div>
 
-            <div>
-              <p className="text-lg text-gray-600 mb-4">過去30日の取り組み状況</p>
-              <div className="flex flex-wrap gap-2">
-                {past30DaysWork.map((worked, index) => (
-                  <div
-                    key={index}
-                    className="w-8 h-8 border-2 border-black rounded-sm flex items-center justify-center text-xs font-bold"
-                    style={{
-                      backgroundColor: worked ? task.color : "#f0f0f0",
-                      color: worked ? "white" : "#666666",
-                      borderColor: worked ? task.color : "#cccccc"
-                    }}
-                  >
-                    {index + 1}
-                  </div>
-                ))}
+          {/* タスクのmaxHoursPerDayが設定されている場合のみ、DisappointmentValleyとBarChartを表示 */}
+          {task.maxHoursPerDay !== null && (
+            <div className="flex flex-1 gap-8 w-full">
+              {/* DisappointmentValley */}
+              <div className="flex-1">
+                <DisappointmentValley 
+                  totalHours={totalHours}
+                />
+              </div>
+
+              {/* BarChart */}
+              <div className="flex-1">
+                <BarChart records={records} />
               </div>
             </div>
-          </div>
-
-          <DailyRecord />
-          <DisappointmentValley />
-          <BarChart />
+          )}
 
         </div>
       </div>
