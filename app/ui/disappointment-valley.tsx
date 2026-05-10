@@ -54,8 +54,8 @@ export function DisappointmentValley({ totalHours }: Props) {
   const markerPoint = data.find((d) => d.t === t) ?? data[0];
 
   return (
-    <div className="flex flex-col mx-0.5 my-0.5 border rounded-sm bg-white px-2 pt-3">
-      <h2 className="text-2xl font-bold mb-4">成長曲線</h2>
+    <div className="flex flex-col border rounded-sm bg-white px-2 pt-2">
+      <h2 className="text-2xl font-bold">成長曲線</h2>
       <div style={{ height: 335, flexShrink: 0 }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart

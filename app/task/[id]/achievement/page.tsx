@@ -44,7 +44,7 @@ export default async function Home({ params }: { params: { id: string } }) {
         <AchievementSideBar tasks={tasks} />
 
         {/* メインコンテンツ */}
-        <div className="flex-1 flex flex-col p-8 space-y-8">
+        <div className="flex-1 flex flex-col px-8 pt-3 space-y-2">
           {/* タスク情報 */}
 
           {/* DailyRecord（全幅） */}

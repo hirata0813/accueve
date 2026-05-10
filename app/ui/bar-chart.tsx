@@ -58,8 +58,8 @@ export function BarChart({ records }: Props) {
   const yMax = Math.max(...data.map((d) => Math.max(d.hours, d.cumulative)));
 
   return (
-    <div className="w-full flex flex-col items-center p-4">
-      <h2 className="text-2xl font-bold mb-4">これまでの累計取り組み時間</h2>
+    <div className="w-full flex flex-col border items-center p-2">
+      <h2 className="text-2xl font-bold">これまでの累計取り組み時間</h2>
 
       {/* Legend を外に固定 */}
       <div className="flex items-center gap-6 mb-2 text-sm">
