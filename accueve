@@ -3,6 +3,8 @@ cmdpath=$(readlink $0 -f || echo $0)
 cd $(dirname $cmdpath)
 
 PORT=33333
+LOGDIR="$(dirname "$cmdpath")/logs"
+mkdir -p "$LOGDIR"
 
 while getopts "p:" opt; do
     case "$opt" in
@@ -17,8 +19,8 @@ done
 shift $((OPTIND - 1))
 
 echo "Starting Accueve server on port $PORT"
-npm run dev -- -p "$PORT" > "$(dirname $cmdpath)/logs/accueve.log" 2>&1 &
+npm run dev -- -p "$PORT" > "$LOGDIR/accueve.log" 2>&1 &
 
 echo "Accueve Started!!"
 echo "Access the app at http://localhost:$PORT"
-echo "Log: $(dirname $cmdpath)/logs/accueve.log"
+echo "Log: $LOGDIR/accueve.log"
