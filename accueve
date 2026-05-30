@@ -1,0 +1,24 @@
+#!/bin/bash -eu
+cmdpath=$(readlink $0 -f || echo $0)
+cd $(dirname $cmdpath)
+
+PORT=33333
+
+while getopts "p:" opt; do
+    case "$opt" in
+        p)
+            PORT="$OPTARG"
+            ;;
+        *)
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+echo "Starting Accueve server on port $PORT"
+npm run dev -- -p "$PORT" > "$(dirname $cmdpath)/logs/accueve.log" 2>&1 &
+
+echo "Accueve Started!!"
+echo "Access the app at http://localhost:$PORT"
+echo "Log: $(dirname $cmdpath)/logs/accueve.log"
