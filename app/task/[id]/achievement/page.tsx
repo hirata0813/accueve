@@ -64,6 +64,20 @@ export default async function Home({ params }: { params: { id: string } }) {
               <div className="flex-1">
                 <DisappointmentValley 
                   totalHours={totalHours}
+                  tooltip={
+                    <>
+                      <p className="font-bold mb-1">成長曲線とは？</p>
+                      <p className="text-gray-300">
+                        成長曲線とは，あなたの努力と成長の関係を表したグラフです．
+                        直感的には，成長は努力に比例して現れると思いがちですが，実際にはそうではありません．
+                        実際には，努力の効果は遅れてやってきます．
+                        最初のしばらくは変化が見えない時期が続き，不安になったりモチベーションが下がったりします．
+                        しかし，ある時点を超えると，急激な成長が訪れます．
+                        継続した人だけがその急成長を体験できます．
+                        あなたがその急成長を体験できるために，このグラフをぜひ活用してください．
+                      </p>
+                    </>
+                  }
                 />
               </div>
 
