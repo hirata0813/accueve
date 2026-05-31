@@ -9,7 +9,7 @@ export function getAchievementMessage(totalHours: number): { title: string; mess
   } else if (totalHours < 60) {
       title = "📈 成長の準備期間";
       message =
-        "力は着実に付いていますが，まだ目に見える変化は少ないです．モチベーションが下がるかもしれませんが，規律として取り組みましょう．";
+        "力は付いていますが，まだ目に見える変化は少ないです．モチベに左右されず，規律として取り組みましょう．";
   } else if (totalHours < 80) {
       title = "🏔️ 失望の谷";
       message =

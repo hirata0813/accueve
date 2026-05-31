@@ -28,7 +28,7 @@ model Record {
   taskId Int
   date  DateTime
   done  Boolean @default(false) // デフォルトではfalse
-  hours  Int? // ?が付くと，NULL を許すということ
+  hours  Float? // ?が付くと，NULL を許すということ
   detail String?
 
   task    Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)

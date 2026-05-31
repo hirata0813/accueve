@@ -8,9 +8,12 @@ import {
   ReferenceDot,
   Label,
 } from "recharts";
+import { TooltipButton } from "@/app/ui/tooltip-button";
+import { getAchievementMessage } from "@/app/lib/getAchievementMessage";
 
 type Props = {
   totalHours: number; // 累計取り組み時間
+  tooltip: React.ReactNode;
 };
 
 // 成長曲線の描画で利用するデータを生成
@@ -37,14 +40,18 @@ const disappointmentvalleyPoint = graphData.reduce((max, d) => {
   return gap > (max.expected - max.actual) ? d : max;
 }, graphData[0]);
 
-export function DisappointmentValley({ totalHours }: Props) {
+export function DisappointmentValley({ totalHours, tooltip }: Props) {
   // totalHours を t として各曲線上の値を取得
   const t = Math.min(Math.max(Math.round(totalHours), 0), 110);
   const markerPoint = graphData.find((d) => d.t === t) ?? graphData[0]; // グラフ上のマーカ位置
+  const { title, message } = getAchievementMessage(totalHours);
 
   return (
     <div className="flex flex-col border rounded-sm bg-white px-2 pt-2">
-      <h2 className="text-2xl font-bold">成長曲線</h2>
+      <div className="flex items-center gap-1.5">
+        <h2 className="text-2xl font-bold">成長曲線</h2>
+        <TooltipButton>{tooltip}</TooltipButton>
+      </div>
       <div style={{ height: 335, flexShrink: 0 }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -167,8 +174,8 @@ export function DisappointmentValley({ totalHours }: Props) {
         </ResponsiveContainer>
       </div>
       <div className="p-4 bg-gray-50 rounded text-sm text-gray-600">
-        <p>テキスト領域</p>
-        <p>テキスト領域</p>
+        <p>{title}</p>
+        <p>{message}</p>
       </div>
     </div>
   );
