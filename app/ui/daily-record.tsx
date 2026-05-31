@@ -14,12 +14,17 @@ type Props = {
   task: Task;
   consecutiveWorkdays: number;
   past30DaysWork: boolean[];
+  records: Array<{
+    date: Date;
+    hours: number | null;
+    detail: string | null;
+  }>;
 };
 
-export function DailyRecord({ task, consecutiveWorkdays, past30DaysWork }: Props) {
+export function DailyRecord({ task, consecutiveWorkdays, past30DaysWork, records }: Props) {
   const HABIT_DAYS = 66;
   const daysUntilHabit = Math.max(0, HABIT_DAYS - consecutiveWorkdays);
-  const maxStreak = calcMaxStreak(past30DaysWork);
+  const maxStreak = calcMaxStreak(past30DaysWork); //TODO: 過去の全ての記録から計算するようにする
   const bestStreak = Math.max(maxStreak, consecutiveWorkdays);
   const { thisMonthCount, thisMonthTotal, bestMonthCount } = calcMonthStats(past30DaysWork);
   const percentage = Math.max(1, Math.round(100 * Math.pow(0.85, consecutiveWorkdays)));
@@ -34,7 +39,12 @@ export function DailyRecord({ task, consecutiveWorkdays, past30DaysWork }: Props
       <div className="flex gap-6">
         {/* 左: カレンダー */}
         <div className="flex-1 bg-white rounded-lg p-4 shadow-sm">
-          <MonthCalendar task={task} past30DaysWork={past30DaysWork} />
+
+      <MonthCalendar 
+        task={task} 
+        past30DaysWork={past30DaysWork}
+        records={records}
+      />
         </div>
 
         {/* 右: 指標群 */}

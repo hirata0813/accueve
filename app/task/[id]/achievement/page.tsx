@@ -53,6 +53,7 @@ export default async function Home({ params }: { params: { id: string } }) {
               task={task}
               consecutiveWorkdays={consecutiveWorkdays}
               past30DaysWork={past30DaysWork}
+              records={records}
             />
           </div>
 
